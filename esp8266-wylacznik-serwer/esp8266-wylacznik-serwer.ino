@@ -5,6 +5,7 @@ const char* ssid = "SSID";
 const char* password = "password";
 const char* hostname = "esp-serwer";
 const char* requestPath = "/";
+const int pinOut = LED_BUILTIN;
 
 ESP8266WebServer server(80);
 
@@ -13,19 +14,18 @@ const unsigned long ledTimeout = 2000; // 2 sekundy
 
 void handleRequest() {
   Serial.println("Otrzymano żądanie!");
-  digitalWrite(LED_BUILTIN, LOW); // LED ON (na ESP8266 LOW = zapalony)
+  digitalWrite(pinOut, LOW); // LED ON
   lastRequestTime = millis();
   server.send(200, "text/plain", "OK");
 }
 
 void setup() {
   Serial.begin(115200);
-  pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, HIGH); // LED OFF (domyślnie zgaszona)
+  pinMode(pinOut, OUTPUT);
+  digitalWrite(pinOut, HIGH); // LED OFF
 
   WiFi.begin(ssid, password);
   WiFi.hostname(hostname);
-  
 
   Serial.print("Łączenie z WiFi");
   while (WiFi.status() != WL_CONNECTED) {
@@ -47,6 +47,6 @@ void loop() {
 
   // Wyłącz LED po 2 sekundach od ostatniego żądania
   if (millis() - lastRequestTime > ledTimeout) {
-    digitalWrite(LED_BUILTIN, HIGH); // LED OFF
+    digitalWrite(pinOut, HIGH); // LED OFF
   }
 }

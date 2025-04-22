@@ -14,4 +14,5 @@
    Opcjonalnie możesz też poprawić:  
       const char* hostname = "esp-serwer";  
       const char* requestPath = "/"; // jeśli to zmienisz, to musisz też poprawić serverUrl w esp8266-wylacznik-klien.ino  
+      const int pinOut = LED_BUILTIN;  
       const unsigned long ledTimeout = 2000; // 2 sekundy  
